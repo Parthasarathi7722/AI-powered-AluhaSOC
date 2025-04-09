@@ -1,0 +1,46 @@
+model:
+  name: llama2-7b
+  quantization: int8
+  batch_size: 32
+  max_length: 512
+  temperature: 0.7
+  top_p: 0.9
+  repetition_penalty: 1.1
+
+inference:
+  device: cuda  # or cpu
+  num_threads: 4
+  use_fp16: true
+  max_batch_size: 32
+  timeout: 30  # seconds
+
+fine_tuning:
+  dataset_path: data/fine_tuning/
+  output_dir: models/fine_tuned/
+  epochs: 3
+  learning_rate: 2e-5
+  batch_size: 8
+  gradient_accumulation_steps: 4
+  warmup_steps: 100
+  max_steps: 1000
+
+prompts:
+  security_analysis: |
+    Analyze the following security event and provide:
+    1. Severity level (Critical/High/Medium/Low)
+    2. Potential impact
+    3. Recommended actions
+    4. Related indicators of compromise
+    
+    Event details:
+    {event_details}
+
+  incident_summary: |
+    Summarize the following security incident, including:
+    1. Timeline of events
+    2. Root cause analysis
+    3. Impact assessment
+    4. Remediation steps taken
+    
+    Incident details:
+    {incident_details} 

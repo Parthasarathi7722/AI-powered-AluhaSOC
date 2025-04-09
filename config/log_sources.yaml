@@ -1,0 +1,142 @@
+# Log Sources Configuration
+
+# Cloud Providers
+aws:
+  regions: ['us-east-1', 'us-west-2']
+  services: ['CloudTrail', 'GuardDuty', 'SecurityHub']
+  log_retention_days: 90
+  batch_size: 1000
+
+azure:
+  subscription_id: ${AZURE_SUBSCRIPTION_ID}
+  tenant_id: ${AZURE_TENANT_ID}
+  services: ['SecurityCenter', 'Monitor']
+  log_retention_days: 90
+  batch_size: 1000
+
+gcp:
+  project_id: ${GCP_PROJECT_ID}
+  organization_id: ${GCP_ORG_ID}
+  services: ['SecurityCommandCenter', 'CloudMonitoring', 'CloudLogging']
+  log_retention_days: 90
+  batch_size: 1000
+
+# SIEM Systems
+splunk:
+  host: splunk.example.com
+  port: 8089
+  username: admin
+  password: ${SPLUNK_PASSWORD}
+  index: main
+  search_window: 3600  # seconds
+  batch_size: 1000
+
+wazuh:
+  host: wazuh.example.com
+  port: 1514
+  api_key: ${WAZUH_API_KEY}
+  log_level: info
+  batch_size: 1000
+
+# System Logs
+syslog:
+  enabled: true
+  sources:
+    - type: file
+      path: /var/log/syslog
+      format: rfc5424
+      facility: local0
+      severity: info
+    - type: udp
+      host: 0.0.0.0
+      port: 514
+      format: rfc5424
+    - type: tcp
+      host: 0.0.0.0
+      port: 515
+      format: rfc5424
+  batch_size: 100
+  buffer_size: 8192
+
+# Identity and Access Management
+okta:
+  org_url: https://your-org.okta.com
+  api_token: ${OKTA_API_TOKEN}
+  events:
+    - user.session.start
+    - user.session.end
+    - user.lifecycle.create
+    - user.lifecycle.delete
+    - app.lifecycle.create
+    - app.lifecycle.delete
+  batch_size: 100
+  poll_interval: 60  # seconds
+
+active_directory:
+  domain: example.com
+  domain_controller: dc1.example.com
+  username: ${AD_USERNAME}
+  password: ${AD_PASSWORD}
+  events:
+    - 4624  # Successful logon
+    - 4625  # Failed logon
+    - 4728  # Member added to security group
+    - 4729  # Member removed from security group
+    - 4738  # Computer account created
+    - 4740  # User account locked
+  batch_size: 100
+  poll_interval: 300  # seconds
+
+# Network Security
+firewall:
+  enabled: true
+  sources:
+    - type: pfsense
+      host: firewall.example.com
+      api_key: ${PFSENSE_API_KEY}
+      events:
+        - block
+        - pass
+        - reject
+    - type: fortigate
+      host: fortigate.example.com
+      username: ${FORTIGATE_USERNAME}
+      password: ${FORTIGATE_PASSWORD}
+      events:
+        - traffic
+        - virus
+        - attack
+  batch_size: 100
+  poll_interval: 60  # seconds
+
+# Endpoint Security
+endpoint:
+  enabled: true
+  sources:
+    - type: crowdstrike
+      client_id: ${CROWDSTRIKE_CLIENT_ID}
+      client_secret: ${CROWDSTRIKE_CLIENT_SECRET}
+      events:
+        - detection
+        - prevention
+        - ioc
+    - type: carbon_black
+      url: https://cb.example.com
+      api_key: ${CARBON_BLACK_API_KEY}
+      events:
+        - alert
+        - process
+        - file
+  batch_size: 100
+  poll_interval: 60  # seconds
+
+# Common Settings
+common:
+  timezone: UTC
+  date_format: "%Y-%m-%d %H:%M:%S"
+  log_level: INFO
+  retry_attempts: 3
+  retry_delay: 5  # seconds
+  max_workers: 4
+  queue_size: 10000
+  flush_interval: 60  # seconds 

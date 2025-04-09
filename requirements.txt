@@ -1,0 +1,46 @@
+# Core dependencies
+fastapi==0.68.1
+uvicorn==0.15.0
+pydantic==1.8.2
+python-dotenv==0.19.0
+
+# Message bus
+pika==1.2.0
+redis==4.0.2
+
+# Log collection
+splunk-sdk==1.6.19
+wazuh-api==1.0.0
+boto3==1.26.137
+azure-mgmt-security==1.0.0
+azure-identity==1.12.0
+
+# LLM and ML
+torch==2.0.1
+transformers==4.30.2
+accelerate==0.20.3
+bitsandbytes==0.41.1
+sentencepiece==0.1.99
+
+# Notifications
+requests==2.31.0
+slack-sdk==3.21.3
+python-jose==3.3.0
+
+# Storage
+sqlalchemy==1.4.41
+alembic==1.11.1
+psycopg2-binary==2.9.5
+
+# Utilities
+pyyaml==6.0.1
+python-dateutil==2.8.2
+pytz==2023.3
+tqdm==4.65.0
+numpy==1.24.3
+pandas==2.0.2
+
+# Testing
+pytest==7.3.1
+pytest-cov==4.1.0
+pytest-asyncio==0.21.1 

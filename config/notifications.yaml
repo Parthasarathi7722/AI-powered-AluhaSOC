@@ -1,0 +1,60 @@
+# Default notification settings
+default_recipients: "security@example.com"
+default_channels: ["slack", "email"]
+
+# Severity thresholds for notifications
+severity_thresholds:
+  critical:
+    channels: ["slack", "email"]
+    recipients: ["security@example.com", "incident-response@example.com"]
+  high:
+    channels: ["slack", "email"]
+    recipients: ["security@example.com"]
+  medium:
+    channels: ["slack"]
+    recipients: ["security@example.com"]
+  low:
+    channels: ["email"]
+    recipients: ["security@example.com"]
+
+# Notification templates
+templates:
+  security_event: |
+    Security Event Alert
+    -------------------
+    Title: {title}
+    Severity: {severity}
+    Source: {source}
+    Description: {description}
+    Impact: {impact}
+    Recommendations:
+    {recommendations}
+    Additional Information:
+    {additional_info}
+
+  incident_summary: |
+    Security Incident Summary
+    -----------------------
+    Incident ID: {id}
+    Status: {status}
+    Start Time: {start_time}
+    End Time: {end_time}
+    Description: {description}
+    Root Cause: {root_cause}
+    Impact: {impact}
+    Remediation Steps:
+    {remediation}
+    Timeline:
+    {timeline}
+
+# Slack configuration
+slack:
+  username: "AluhaSOC"
+  icon_emoji: ":shield:"
+  channel: "#security-alerts"
+
+# Email configuration
+email:
+  subject_prefix: "[AluhaSOC]"
+  reply_to: "security@example.com"
+  html_template: true 
