@@ -6,6 +6,8 @@ import uvicorn
 from dotenv import load_dotenv
 
 from agents.splunk.splunk_agent import SplunkAgent
+from agents.gcp.gcp_agent import GCPAgent
+from agents.azure.azure_agent import AzureAgent
 from analysis.llm.engine import LLMAnalysisEngine
 from analysis.message_bus import MessageBus
 from notifications.notifier import Notifier
@@ -31,7 +33,9 @@ notifier = Notifier('config/notifications.yaml')
 
 # Initialize log agents
 log_agents = {
-    'splunk': SplunkAgent('config/log_sources.yaml')
+    'splunk': SplunkAgent('config/log_sources.yaml'),
+    'gcp': GCPAgent('config/log_sources.yaml'),
+    'azure': AzureAgent('config/log_sources.yaml')
     # Add other agents here
 }
 

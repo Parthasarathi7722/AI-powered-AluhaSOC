@@ -6,6 +6,8 @@ from dotenv import load_dotenv
 
 from .base_agent import BaseLogAgent
 from .splunk.splunk_agent import SplunkAgent
+from .gcp.gcp_agent import GCPAgent
+from .azure.azure_agent import AzureAgent
 # Import other agents here
 
 # Configure logging
@@ -21,6 +23,8 @@ load_dotenv()
 # Define available agents
 AGENTS: Dict[str, Type[BaseLogAgent]] = {
     'splunk': SplunkAgent,
+    'gcp': GCPAgent,
+    'azure': AzureAgent,
     # Add other agents here
 }
 
